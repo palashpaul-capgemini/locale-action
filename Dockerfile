@@ -1,14 +1,19 @@
-FROM python:3-slim AS builder
-ADD . /app
-WORKDIR /app
+FROM node:12
 
-# We are installing a dependency here directly into our app source dir
-RUN pip install --target=/app requests
+# Create app directory
+WORKDIR /usr/src/app
 
-# A distroless container image with Python and some basics like SSL certificates
-# https://github.com/GoogleContainerTools/distroless
-FROM gcr.io/distroless/python3-debian10
-COPY --from=builder /app /app
-WORKDIR /app
-ENV PYTHONPATH /app
-CMD ["/app/main.py"]
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "npm", "start" ]
