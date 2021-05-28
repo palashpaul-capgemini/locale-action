@@ -21,10 +21,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         load: true
-        tags: palashpaul/node-test:latest
-    - name: docker tag
-      run: docker tag palashpaul/node-test:latest palashpaul/node-test:latest
+        tags: palashpaulcapgemini/locale-test:latest
     - name: docker push
-      run: docker push palashpaul/node-test:latest
+      run: docker push palashpaulcapgemini/locale-test:latest
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
