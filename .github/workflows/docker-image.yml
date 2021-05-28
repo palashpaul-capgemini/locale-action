@@ -23,7 +23,7 @@ jobs:
         load: true
         tags: palashpaul/node-test:latest
     - name: docker tag
-      run: docker tag 0e5574283393 palashpaul/node-test:latest
+      run: docker tag palashpaul/node-test:latest palashpaul/node-test:latest
     - name: docker push
       run: docker push palashpaul/node-test:latest
     - name: Image digest
